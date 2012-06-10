@@ -26,9 +26,16 @@ void setup(){
 }
 
 void loop(){
-  if(error == 1) // skip loop if no controller found, from the PS2X example
-  return;
-  
+  if(error == 1){ // flash led if there's an error
+   digitalWrite(11,HIGH); 
+   delay(500);
+   digitalWrite(11,LOW); 
+   delay(500);
+   error = controller.config_gamepad(0,1,2,3, false, false); // Try to setup the controller again
+  }
+  else{ // turn on the LED if all's good
+    digitalWrite(11,HIGH); 
+  }
   controller.read_gamepad(); //read the controller
   // now that we've read the pad, we can build our usb packet and send it 
   // remember that the packet will not send until you call Joystick.send_now();
