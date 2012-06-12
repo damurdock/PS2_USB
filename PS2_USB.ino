@@ -61,6 +61,5 @@ void loop(){
   Joystick.Y(((controller.Analog(PSS_LY) + 1) * 4) - 1); // as 0-255, while the Teensy expects values from 0-1023 
   Joystick.Z(((controller.Analog(PSS_RY) + 1) * 4) - 1); // some precision is lost, hopefully that doesn't matter
   Joystick.Zrotate(((controller.Analog(PSS_RX) + 1) * 4) - 1);
-  delay(0); // for some reason, the code won't compile unless I either add a random function call or comment one out. not a clue why
   Joystick.send_now(); // send the packet and begin the loop anew
 }
