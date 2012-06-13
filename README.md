@@ -20,33 +20,33 @@ PS2-USB can be used in two configurations, 5v and 3.3v. The Fritzing board file 
 NOTE: The 5v version has only been tested and confirmed to work with an official Sony Dualshock 2 controller. Your results may vary.
 Thanks to Bill Porter and Curious Inventor for their work, diagrams, and instructions.
 
-Controller ---------------> Teensy
-Pin 1 ----------> Pin B3
-        |-----(10k resistor)--> VCC
-Pin 2 ---------> Pin B1
-Pin 3 NC
-Pin 4 ---------> GND
-Pin 5 ---------> VCC
-Pin 6 --(5.6k resistor)--> Pin B2
-Pin 7 --(5.6k resistor)--> Pin B0
-Pin 8 NC
-Pin 9 NC
+Controller ---------------> Teensy  
+Pin 1 ----------> Pin B3  
+        |-----(10k resistor)--> VCC  
+Pin 2 ---------> Pin B1  
+Pin 3 NC  
+Pin 4 ---------> GND  
+Pin 5 ---------> VCC  
+Pin 6 --(5.6k resistor)--> Pin B2  
+Pin 7 --(5.6k resistor)--> Pin B0  
+Pin 8 NC  
+Pin 9 NC  
 
 ####3.3v
 NOTE: This requires that you [convert your Teensy to 3.3 volts](http://www.pjrc.com/teensy/3volt.html) or [run it from an external 3.3 volt supply] (http://www.pjrc.com/teensy/external_power.html).
 Thanks to Bill Porter and Curious Inventor for their work, diagrams, and instructions.
 
-Controller --------------> Teensy
-Pin 1 ----------> Pin B3
-        |-----(10k resistor)--> VCC
-Pin 2 ---------> Pin B1
-Pin 3 NC  
-Pin 4 ---------> GND
-Pin 5 ---------> VCC
-Pin 6 ---------> Pin B2
-Pin 7 ---------> Pin B0
-Pin 8 NC
-Pin 9 NC
+Controller --------------> Teensy  
+Pin 1 ----------> Pin B3  
+        |-----(10k resistor)--> VCC  
+Pin 2 ---------> Pin B1  
+Pin 3 NC    
+Pin 4 ---------> GND  
+Pin 5 ---------> VCC  
+Pin 6 ---------> Pin B2  
+Pin 7 ---------> Pin B0  
+Pin 8 NC  
+Pin 9 NC  
 
 ###Software
 The PS2-USB software is written in Teensyduino, which means that you need to have a a current (1.0 or above) version of the Arduino software installed, as well as the PJRC Teensyduino software.
