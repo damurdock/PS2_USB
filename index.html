@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="PS2-USB : A PS2 controller to USB adaptor using the PJRC Teensy." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>PS2-USB</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/damurdock/PS2_USB">View on GitHub</a>
+
+          <h1 id="project_title">PS2-USB</h1>
+          <h2 id="project_tagline">A PS2 controller to USB adaptor using the PJRC Teensy.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/damurdock/PS2_USB/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/damurdock/PS2_USB/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>What is it?</h3>
+
+<p>PS2-USB is exactly what it says on the tin: a simple project which makes use of the <a href="http://www.pjrc.com/teensy/">PJRC Teensy 2.0</a> to turn a Sony Playstation 2 controller into a USB HID Joystick.</p>
+
+<h3>How does it work?</h3>
+
+<p>PS2-USB uses the Teensyduino Joystick library and <a href="http://www.billporter.info/playstation-2-controller-arduino-library-v1-0/">Bill Porter's PS2X library</a> together, using PS2X to read from the controller, then sending that data to the computer with the Joystick library. It's written in Arduino and requires that Teensyduino is installed. </p>
+
+<h3>Will it work with my computer/tablet/sentient robot?</h3>
+
+<p>PS2-USB will work with anything that supports the USB HID Joystick protocol, which means that it should work with any modern computer and operating system. Tablets are another matter entirely. I don't <em>think</em> it will work with any Android or iOS devices, but please let me know if it does.</p>
+
+<h3>Will it work with my controller?</h3>
+
+<p><em>Possibly.</em> As it stands, the current posted hardware will work with an official Sony Dualshock 2 controller. If you replace the 5.6k resistors with wire jumpers and <a href="http://www.pjrc.com/teensy/3volt.html">convert your Teensy to 3.3 volts,</a> more controllers will work. However, PS2x is finicky, so be sure to try everything on <a href="http://www.billporter.info/arduino-playstation-2-controller-library-troubleshooting-guide/">this page</a> to get it working. Also try <a href="http://www.pjrc.com/teensy/3volt.html">converting your Teensy to 3.3 volts</a> or <a href="http://www.pjrc.com/teensy/external_power.html">running it on an external 3.3v supply.</a></p>
+
+<h3>Will it work with my guitar controller?</h3>
+
+<p>Eventually. Support for guitar controllers is in the PS2X library, but I have yet to add them to PS2-USB. Once I get everything documented and cleaned up, I'll get cracking on guitar support.</p>
+
+<h3>Does it support rumble?</h3>
+
+<p>Currently, no. Rumble could be added in a future revision, but I have no idea how to receive force-feedback data from the computer.</p>
+
+<h3>How do I set it up?</h3>
+
+<p>Check the README file for setup instructions.</p>
+
+<h3>Where are the schematics?</h3>
+
+<p>Currently, the schematics are in the file "PS2-USB.fzz", made with Fritzing. Soon, I'll have everything drawn up in Cadsoft EAGLE, with pdfs of the schematics and so forth. If you don't want to use Fritzing and can't wait for me to make the schematics, just check the README file for wiring instructions.</p>
+
+<h3>Why the Teensy? Why not the Arduino Leonardo/Uno?</h3>
+
+<p>I chose the Teensy because it was cheap and easy to use. Dedicating a whole Uno to a simple project like this seemed wasteful, and there are no HID joystick libraries for the Leonardo (that I'm aware of). I'd like to port the Teensyduino libraries (and eventually PS2-USB) to the Leonardo, but that's going to take a while.</p>
+
+<h3>I have a question that isn't answered here!</h3>
+
+<p>Check the README first, and if that doesn't help then send me an email at me at duncanmurdock dot name.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">PS2-USB maintained by <a href="https://github.com/damurdock">damurdock</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-32605943-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
