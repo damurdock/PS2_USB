@@ -14,7 +14,7 @@ To setup and use PS2-USB, you'll need:
   * A method of connecting your controller to the circuit
   
 ###Wiring
-PS2-USB can be used in two configurations, 5v and 3.3v. The Fritzing board file provided is for the 5v version, soon 3.3 and 5 volt schematics will be provided in Cadsoft EAGLE format. If you are using perfboard, a breadboard, a freehand circuit, or any other method, follow these instructions.
+PS2-USB can be used in two configurations, 5v and 3.3v. CadSoft EAGLE board and schematics are available in the hardware directory. If you are using perfboard, a breadboard, a freehand circuit, or any other method, follow these instructions.
 
 ####5v
 NOTE: The 5v version has only been tested and confirmed to work with an official Sony Dualshock 2 controller. Your results may vary.
@@ -57,7 +57,9 @@ To setup the software, simply open PS2_USB.ino in Arduino, select "Teensy 2.0" a
 PS2-USB shouldn't require any extra work once the hardware is built and the software loaded. There are a few things you should know, however. When PS2-USB is connected, the Teensy's LED will indicate its' status. If the light is flashing, either no controller is connected, or PS2X cannot talk to the controller. Try the instructions on [this page](http://www.billporter.info/arduino-playstation-2-controller-library-troubleshooting-guide/), or try using the 3.3 volt version. Once your controller is working, you may want to look at the Button Diagram.jpg file to see how the buttons are numbered (This diagram is based on a diagram available on the PJRC website. Photo taken by Duncan Murdock, Playstation is a registered trademark of Sony).
 
 ###Credits
-PS2-USB relies upon the [PS2X library by Bill Porter] (http://www.billporter.info/playstation-2-controller-arduino-library-v1-0/) and the [PJRC Teensyduino joystick library] (http://www.pjrc.com/teensy/td_joystick.html). I would also like to thank Curious Inventor for their PS2 controller interface guide, and Bill Porter for his troubleshooting guide.
+PS2-USB relies upon the [PS2X library by Bill Porter] (http://www.billporter.info/playstation-2-controller-arduino-library-v1-0/) and the [PJRC Teensyduino joystick library] (http://www.pjrc.com/teensy/td_joystick.html). I would also like to thank Curious Inventor for their PS2 controller interface guide, and Bill Porter for his troubleshooting guide. 
 
-PS2-USB is written and maintained by Duncan Murdock. PS2-USB and all related works by Duncan Murdock are licensed under the MIT License unless otherwise noted. A copy of the MIT License is provided in the acompanying LICENSE file. If the LICENSE file is not included or is damaged in some way, a copy can be viewed at http://www.opensource.org/licenses/mit-license.php.
+PS2-USB's hardware uses parts from the Sparkfun Eagle Library, as well a modified part for the Teensy 2.0 created by Mark Gross. The modified version, details, and license are in the hardware directory.
+
+PS2-USB is written and maintained by Duncan Murdock. PS2-USB and all related works by Duncan Murdock are licensed under the MIT License unless otherwise noted. A copy of the MIT License is provided in the accompanying LICENSE file. If the LICENSE file is not included or is damaged in some way, a copy can be viewed at http://www.opensource.org/licenses/mit-license.php.
 
