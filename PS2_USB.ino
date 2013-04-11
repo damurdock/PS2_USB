@@ -54,7 +54,7 @@ void loop(){
     
     // working on PS3 compatibility, start && select will work as the PS button (hopefully)
     if(controller.Button(PSB_SELECT) && controller.Button(PSB_START)){
-      Joystick.button(14, 1);
+      Joystick.button(13, 1);
     }
     
     else if(controller.Button(PSB_SELECT) &! controller.Button(PSB_START)){
@@ -90,14 +90,14 @@ void loop(){
     else if(controller.Button(PSB_PAD_RIGHT) && controller.Button(PSB_PAD_DOWN)){
       Joystick.hat(225);
     }
-
+    
     Joystick.X(((controller.Analog(PSS_LX) + 1) * 4) - 1); // have to do some gymnastics here because PS2X reports the analog value
     Joystick.Y(((controller.Analog(PSS_LY) + 1) * 4) - 1); // as 0-255, while the Teensy expects values from 0-1023 
     Joystick.Z(((controller.Analog(PSS_RX) + 1) * 4) - 1); // some precision is lost, hopefully that doesn't matter
     Joystick.Zrotate(((controller.Analog(PSS_RY) + 1) * 4) - 1);
     Joystick.send_now(); // send the packet and begin the loop anew
     delay(50);
-    Joystick.button(14, 0);
+    Joystick.button(13, 0);
     Joystick.button(9, 0);
     Joystick.button(10, 0);
     Joystick.hat(-1);

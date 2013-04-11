@@ -22,7 +22,7 @@ Thanks to Bill Porter and Curious Inventor for their work, diagrams, and instruc
 
 Controller ---------------> Teensy  
 Pin 1 ----------> Pin B3  
-        |-----(10k resistor)--> VCC  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-----(10k resistor)--> VCC  
 Pin 2 ---------> Pin B1  
 Pin 3 NC  
 Pin 4 ---------> GND  
@@ -38,7 +38,7 @@ Thanks to Bill Porter and Curious Inventor for their work, diagrams, and instruc
 
 Controller --------------> Teensy  
 Pin 1 ----------> Pin B3  
-        |-----(10k resistor)--> VCC  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-----(10k resistor)--> VCC  
 Pin 2 ---------> Pin B1  
 Pin 3 NC    
 Pin 4 ---------> GND  
@@ -52,6 +52,9 @@ Pin 9 NC
 The PS2-USB software is written in Teensyduino, which means that you need to have a a current (1.0 or above) version of the Arduino software installed, as well as the PJRC Teensyduino software.
 
 To setup the software, simply open PS2_USB.ino in Arduino, select "Teensy 2.0" as the board type, "Keyboard \+ Mouse \+ Joystick" as the USB type, and "16 MHz" as the CPU speed (8 MHz if running on 3.3 volts). Then, hit verify, and wait for the Teensy Loader to open. When Teensy Loader is open, make sure your Teensy is connected and hit the reset button on the Teensy. After the code is loaded, you're good to go!
+
+###Playstation 3
+PS2-USB is now fully compatible with the Playstation 3! All buttons and axes will work by default. In order to use the "PS button", install the Teensyduino PS Button Mod located [here](https://github.com/damurdock/Teensyduino-PS-Button-Mod). Pressing Start and Select at the same time sends the PS button.
 
 ###Usage
 PS2-USB shouldn't require any extra work once the hardware is built and the software loaded. There are a few things you should know, however. When PS2-USB is connected, the Teensy's LED will indicate its' status. If the light is flashing, either no controller is connected, or PS2X cannot talk to the controller. Try the instructions on [this page](http://www.billporter.info/arduino-playstation-2-controller-library-troubleshooting-guide/), or try using the 3.3 volt version. Once your controller is working, you may want to look at the Button Diagram.jpg file to see how the buttons are numbered (This diagram is based on a diagram available on the PJRC website. Photo taken by Duncan Murdock, Playstation is a registered trademark of Sony).
