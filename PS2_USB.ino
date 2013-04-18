@@ -3,7 +3,7 @@
  *=============================================================================*
  *                             By: Duncan Murdock                              *
  *                             Date: 1/20/2012                                 *
- *                             Version: 3                                      *
+ *                             Version: 4                                      *
  *+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
  *  Uses a Teensy 2.0 in Joystick mode to convert a PS2 controller to USB.     *
  * Based on the PJRC Joystick example and Bill Porter's excellent PS2X library *
@@ -18,11 +18,11 @@
 PS2X controller;
 int error = 0;
 byte type = 0;
+boolean config = false;
 
 void setup(){
   error = controller.config_gamepad(0,1,2,3, false, false); // setup controller, config_gamepad(clock, command, attention, data, Pressures?, Rumble?); rumble and pressures currently unsupported
     //Guitar Hero controllers should work now. I don't have one to test though.
-      Joystick.useManualSend(true); // only send a USB packet after reading controller
 }
 
 void loop(){
@@ -33,13 +33,13 @@ void loop(){
     delay(500);
     error = controller.config_gamepad(0,1,2,3, false, false); // Try to setup the controller again
   }
-  else{ // turn on the LED and get controller type if all's well
+  else if (!config) { // turn on the LED and get controller type if all's well
     digitalWrite(11,HIGH); 
     type = controller.readType();
+    config = true;
   }
   controller.read_gamepad(); //read the controller
-  // now that we've read the pad, we can build our usb packet and send it 
-  // remember that the packet will not send until we call Joystick.send_now();
+  // testing out sending the usb packet spontaneously, should reduce lag a bit
   if(type !=2){ 
     Joystick.button(1, controller.Button(PSB_PINK));
     Joystick.button(2, controller.Button(PSB_BLUE));
@@ -52,9 +52,11 @@ void loop(){
     Joystick.button(11, controller.Button(PSB_L3));
     Joystick.button(12, controller.Button(PSB_R3));
     
-    // working on PS3 compatibility, start && select will work as the PS button (hopefully)
+    // working on PS3 compatibility, start && select will work as the PS button
     if(controller.Button(PSB_SELECT) && controller.Button(PSB_START)){
       Joystick.button(13, 1);
+      Joystick.button(9, 0);
+      Joystick.button(10, 0);
     }
     
     else if(controller.Button(PSB_SELECT) &! controller.Button(PSB_START)){
@@ -64,6 +66,11 @@ void loop(){
     else if(!controller.Button(PSB_SELECT) & controller.Button(PSB_START)) {
       Joystick.button(10, 1);
     }
+    else {
+      Joystick.button(13, 0);
+      Joystick.button(9, 0);
+      Joystick.button(10, 0);
+    }
     
     // treat the dpad like a POV hat
     if(controller.Button(PSB_PAD_LEFT) && !controller.Button(PSB_PAD_UP) && !controller.Button(PSB_PAD_DOWN)){
@@ -72,46 +79,48 @@ void loop(){
     else if(controller.Button(PSB_PAD_RIGHT) && !controller.Button(PSB_PAD_UP) && !controller.Button(PSB_PAD_DOWN)){
       Joystick.hat(90);
     }
-    else if(controller.Button(PSB_PAD_UP)){
+    else if(controller.Button(PSB_PAD_UP) && !controller.Button(PSB_PAD_RIGHT) && !controller.Button(PSB_PAD_LEFT)){
       Joystick.hat(0);
     }
-    else if(controller.Button(PSB_PAD_DOWN)){
+    else if(controller.Button(PSB_PAD_DOWN) && !controller.Button(PSB_PAD_RIGHT) && !controller.Button(PSB_PAD_LEFT)){
       Joystick.hat(180);
     }
     else if(controller.Button(PSB_PAD_LEFT) && controller.Button(PSB_PAD_UP)){
       Joystick.hat(315);
     }
     else if(controller.Button(PSB_PAD_LEFT) && controller.Button(PSB_PAD_DOWN)){
-      Joystick.hat(135);
+      Joystick.hat(225);
     }
     else if(controller.Button(PSB_PAD_RIGHT) && controller.Button(PSB_PAD_UP)){
       Joystick.hat(45);
     }
     else if(controller.Button(PSB_PAD_RIGHT) && controller.Button(PSB_PAD_DOWN)){
-      Joystick.hat(225);
+      Joystick.hat(135);
+    }
+    else {
+      Joystick.hat(-1);
     }
     
-    Joystick.X(((controller.Analog(PSS_LX) + 1) * 4) - 1); // have to do some gymnastics here because PS2X reports the analog value
-    Joystick.Y(((controller.Analog(PSS_LY) + 1) * 4) - 1); // as 0-255, while the Teensy expects values from 0-1023 
-    Joystick.Z(((controller.Analog(PSS_RX) + 1) * 4) - 1); // some precision is lost, hopefully that doesn't matter
-    Joystick.Zrotate(((controller.Analog(PSS_RY) + 1) * 4) - 1);
-    Joystick.send_now(); // send the packet and begin the loop anew
-    delay(50);
-    Joystick.button(13, 0);
-    Joystick.button(9, 0);
-    Joystick.button(10, 0);
-    Joystick.hat(-1);
+    Joystick.X(map(controller.Analog(PSS_LX),0,255,0,1023)); // updated to use map(), which is designed for this
+    Joystick.Y(map(controller.Analog(PSS_LY),0,255,1023,0)); // these axes are inversed for some reason
+    Joystick.Z(map(controller.Analog(PSS_RX),0,255,0,1023));
+    Joystick.Zrotate(map(controller.Analog(PSS_RY),0,255,1023,0));
   }
   else if(type == 2){ // guitar hero
-    Joystick.button(1, controller.Button(GREEN_FRET));
-    Joystick.button(2, controller.Button(RED_FRET));
-    Joystick.button(3, controller.Button(YELLOW_FRET));
-    Joystick.button(4, controller.Button(BLUE_FRET));
-    Joystick.button(5, controller.Button(ORANGE_FRET));
-    Joystick.button(6, controller.Button(UP_STRUM) || controller.Button(DOWN_STRUM)); // if you strum at all, this button goes true.
+    // mapping thanks to http://strategywiki.org/wiki/Guitar_Hero_II/Controls
+    Joystick.button(8, controller.Button(GREEN_FRET));
+    Joystick.button(3, controller.Button(RED_FRET));
+    Joystick.button(4, controller.Button(YELLOW_FRET));
+    Joystick.button(2, controller.Button(BLUE_FRET));
+    Joystick.button(1, controller.Button(ORANGE_FRET));
     Joystick.button(9, controller.Button(STAR_POWER));
-    Joystick.button(10, controller.Button(UP_STRUM));
-    Joystick.button(11, controller.Button(DOWN_STRUM));
+        
+    if(controller.Button(UP_STRUM) || controller.Button(DOWN_STRUM)){ // if you strum at all, this button goes true.
+      Joystick.hat(0);
+    }
+    else {
+      Joystick.hat(-1);
+    }
     
     // working on PS3 compatibility, start && select will work as the PS button (hopefully)
     if(controller.Button(PSB_SELECT) && controller.Button(PSB_START)){
@@ -126,7 +135,7 @@ void loop(){
       Joystick.button(8, 1);
     }
     
-    Joystick.X(((controller.Analog(WHAMMY_BAR) + 1) * 4) - 1);
+    Joystick.Y(map(controller.Analog(WHAMMY_BAR),0,255,0,1023));
     Joystick.send_now();
   }
 }
